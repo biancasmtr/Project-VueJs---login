@@ -1,45 +1,3 @@
-
-<script>
-  import { required } from 'vuelidate/lib/validators'
-  export default {
-    mounted () {
-      this.$bus.$on('navigate', this.reset)
-    },
-    validations: {
-      username: {
-        required
-      },
-      password: {
-        required
-      },
-    },
-    data () {
-      return {
-        username: '',
-        password: '',
-        keepSignedIn: true
-      }
-    },
-    methods: {
-      submit () {
-        if (!this.$v.$invalid) {
-          this.$emit('do-sign-in', {...this.$data})
-        } else {
-          this.$v.$touch()
-        }
-      },
-      reset (selected) {
-        if (selected === 'signup') {
-          this.username = ''
-          this.password = ''
-          this.keepSignedIn = true
-          this.$v.$reset()
-        }
-      }
-    }
-  }
-</script>
-
 <template>
   <form action="#" @submit.prevent="submit" class="sign-in-htm">
     <div class="group">
@@ -68,16 +26,54 @@
         data-type="password"
         v-model="password">
     </div>
+
     <div class="group">
-      <input id="check" type="checkbox" class="check" v-model="keepSignedIn">
-      <label for="check"><span class="icon"></span> Keep me Signed in</label>
-    </div>
-    <div class="group">
-      <input type="submit" class="button" value="Sign In">
+      <input type="submit" class="button" value="Entrar">
     </div>
     <div class="hr"></div>
     <div class="foot-lnk">
-      <a href="#forgot">Forgot Password?</a>
+      <a href="#forgot">Esqueceu sua senha?</a>
     </div>
   </form>
 </template>
+
+<script>
+  import { required } from 'vuelidate/lib/validators'
+  export default {
+    mounted () {
+      this.$bus.$on('navigate', this.reset)
+    },
+    validations: {
+      username: {
+        required
+      },
+      password: {
+        required
+      },
+    },
+    data () {
+      return {
+        username: '',
+        password: ''
+      }
+    },
+    methods: {
+      submit () {
+        if (!this.$v.$invalid) {
+          this.$emit('do-sign-in', this.$data)
+        } else {
+          this.$v.$touch()
+        }
+      },
+      reset (selected) {
+        if (selected === 'signup') {
+          this.username = ''
+          this.password = ''
+          this.keepSignedIn = true
+          this.$v.$reset()
+        }
+      }
+    }
+  }
+</script>
+

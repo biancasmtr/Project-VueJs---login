@@ -1,3 +1,6 @@
+<template>
+  <ved-auth/>
+</template>
 
 <script>
   import VedAuth from './features/auth/main'
@@ -8,6 +11,3 @@
   }
 </script>
 
-<template>
-  <ved-auth/>
-</template>
